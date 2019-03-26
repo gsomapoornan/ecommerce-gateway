@@ -1,0 +1,57 @@
+server:
+  port: 8763
+spring:
+  application:
+    name: zuul-service
+zuul:
+  routes:
+  
+    uaa:
+      path: /uaa/**
+      sensitiveHeaders:
+      serviceId: uaa-service
+    catalog:
+      path: /catalog/**
+      sensitiveHeaders:
+      serviceId: catalogservice
+    users:
+      path: /users/**
+      sensitiveHeaders:
+      serviceId: userservice
+    uiservice:
+      path: /ui/**
+      sensitiveHeaders: 
+      serviceId: uiservice  
+  sensitive-headers:
+  ignored-services:
+  ignored-headers:
+      
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+    fetch-registry: true
+    register-with-eureka: true
+     
+  
+logging:
+  pattern:
+    level: DEBUG
+        
+
+  
+      
+security:
+  oauth2:
+    resource:
+      jwt:
+        key-value: 123
+      user-info-uri: http://localhost:9191/uaa/user
+    client:
+      user-authorization-uri: http://localhost:9191/uaa/oauth/authorize
+      access-token-uri: http://localhost:9191/uaa/oauth/token
+      client-id: edge-service
+      client-secret: secret
+      
+        
+        
